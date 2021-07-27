@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "woiOvO5R9becWrhpoYaJLSWbEK/yg9QctkHe1UqbAVHfHYU/BL6+vZLFDmSLweH7cDflCBRsDXwM29BuZCaEfQ==",
+  "dgSpecHash": "Q8UM7Ralj76kkcWBiSksnvsc0uoqL0m0wsqMj2HBkJ56zTlqhfkN7/MWZboHipWf8L9EU5Y4o4HkakJ/eNsDqg==",
   "success": true,
   "projectFilePath": "C:\\projetos\\APICatalogo\\APICatalogo\\APICatalogo.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Karolina\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\Karolina\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.8\\microsoft.aspnetcore.jsonpatch.5.0.8.nupkg.sha512",
+    "C:\\Users\\Karolina\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\5.0.8\\microsoft.aspnetcore.mvc.newtonsoftjson.5.0.8.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\microsoft.entityframeworkcore\\5.0.7\\microsoft.entityframeworkcore.5.0.7.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\5.0.7\\microsoft.entityframeworkcore.abstractions.5.0.7.nupkg.sha512",
@@ -24,6 +26,8 @@
     "C:\\Users\\Karolina\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\mysqlconnector\\1.3.10\\mysqlconnector.1.3.10.nupkg.sha512",
+    "C:\\Users\\Karolina\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
+    "C:\\Users\\Karolina\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\pomelo.entityframeworkcore.mysql\\5.0.1\\pomelo.entityframeworkcore.mysql.5.0.1.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\swashbuckle.aspnetcore\\5.6.3\\swashbuckle.aspnetcore.5.6.3.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\5.6.3\\swashbuckle.aspnetcore.swagger.5.6.3.nupkg.sha512",

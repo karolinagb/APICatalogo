@@ -32,7 +32,12 @@ namespace APICatalogo
             services.AddDbContext<APICatalogoDbContext>(options =>
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
 
-            services.AddControllers();
+            /*Para resolver o problema de referência cíclica do Json (categorias <-> produtos): 
+             * Instale o pacote = Microsoft.AspNetCore.Mvc.NewtonsoftJson
+             Adicione o código abaixo:*/
+            services.AddControllers()
+                .AddNewtonsoftJson(x => x.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "APICatalogo", Version = "v1" });

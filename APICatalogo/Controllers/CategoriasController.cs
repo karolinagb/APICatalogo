@@ -74,5 +74,11 @@ namespace APICatalogo.Controllers
             _aPICatalogoDbContext.SaveChanges();
             return categoria;
         }
+
+        [HttpGet("produtos")]
+        public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
+        {
+            return _aPICatalogoDbContext.Categorias.Include(x => x.Produtos).AsNoTracking().ToList();
+        }
     }
 }
