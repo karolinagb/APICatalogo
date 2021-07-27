@@ -2,7 +2,6 @@
 using APICatalogo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Mvc.Routing;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -32,7 +31,8 @@ namespace APICatalogo.Controllers
             return _aPICatalogoDbContext.Produtos.AsNoTracking().ToList();
         }
 
-        [HttpGet("{id}"), Name = "ObterProduto"]
+        //Name cria uma rota que permite vincular uma resposta Http
+        [HttpGet("{id}", Name = "ObterProduto")]
         public ActionResult<Produto> Get(int id)
         {
             var produto = _aPICatalogoDbContext.Produtos.AsNoTracking().FirstOrDefault(x => x.Id == id);
@@ -65,6 +65,41 @@ namespace APICatalogo.Controllers
             //Quando criamos um produto, temos que retornar a localização de um produto
             return new CreatedAtRouteResult("ObterProduto", new { id = produto.Id}, produto);
             //Acima estou passando id como parametro para a action get e o produto que virá no corpo
+        }
+
+        [HttpPut("{id}")]
+        public ActionResult Put(int id,[FromBody] Produto produto)
+        {
+            //if (!ModelState.IsValid)
+            //{
+            //    return BadRequest(ModelState);
+            //}
+
+            if(id != produto.Id)
+            {
+                return BadRequest();
+            }
+
+            //Para alterar o estado dessa entidade com Modified
+            _aPICatalogoDbContext.Entry(produto).State = EntityState.Modified;
+            _aPICatalogoDbContext.SaveChanges();
+
+            return Ok(); //Http200
+        }
+
+        [HttpDelete("{id}")]
+        public ActionResult<Produto> Delete(int id)
+        {
+            var produto = _aPICatalogoDbContext.Produtos.FirstOrDefault(x => x.Id == id);
+
+            if(produto == null)
+            {
+                return NotFound();
+            }
+
+            _aPICatalogoDbContext.Produtos.Remove(produto);
+            _aPICatalogoDbContext.SaveChanges();
+            return produto;
         }
     }
 }
