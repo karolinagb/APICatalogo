@@ -12,7 +12,7 @@
     "IIS Express": {
       "commandName": "IISExpress",
       "launchBrowser": true,
-      "launchUrl": "api/categorias",
+      "launchUrl": "api/produtos",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }

@@ -20,6 +20,7 @@ namespace APICatalogo.Controllers
             _aPICatalogoDbContext = aPICatalogoDbContext;
         }
 
+        //api/produtos
         [HttpGet]
         public ActionResult<IEnumerable<Categoria>> Get()
         {
@@ -36,6 +37,7 @@ namespace APICatalogo.Controllers
             
         }
 
+        //api/produtos/id
         [HttpGet("{id}", Name = "ObterCategoria")]
         public ActionResult<Categoria> Get(int? id)
         {
@@ -64,7 +66,8 @@ namespace APICatalogo.Controllers
 
         }
 
-        [HttpPost]
+        //api/produtos
+        [HttpPost] //Os métodos actions atendem as requisições para os respectivos verbos Http's
         public ActionResult Post([FromBody] Categoria categoria)
         {
             try

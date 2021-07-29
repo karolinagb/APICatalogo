@@ -20,6 +20,13 @@ namespace APICatalogo.Controllers
             _aPICatalogoDbContext = aPICatalogoDbContext;
         }
 
+        //Para ignorar a rota padrão
+        [HttpGet("/primeiro")] // primeiro
+        [HttpGet("primeiro")] //Uma action pode atender dois endpoints
+        public ActionResult<Produto> Get2()
+        {
+            return _aPICatalogoDbContext.Produtos.FirstOrDefault();
+        }
 
         [HttpGet]
         //Retorna todos os produtos
@@ -31,10 +38,13 @@ namespace APICatalogo.Controllers
             return _aPICatalogoDbContext.Produtos.AsNoTracking().ToList();
         }
 
+        //api/produtos/id/valor
         //Name cria uma rota que permite vincular uma resposta Http
-        [HttpGet("{id}", Name = "ObterProduto")]
-        public ActionResult<Produto> Get(int id)
+        [HttpGet("{id}/{param2=Karol}", Name = "ObterProduto")] //Api recebendo dois parametros - Interrogação para dizer que o segundo parâmetro é opcional
+        public ActionResult<Produto> Get(int id, string param2) //O param2 também pode receber um valor padrão que eu definir
         {
+            var segundoParametro = param2;
+
             var produto = _aPICatalogoDbContext.Produtos.AsNoTracking().FirstOrDefault(x => x.Id == id);
             if(produto == null)
             {
