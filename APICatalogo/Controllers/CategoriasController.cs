@@ -25,6 +25,7 @@ namespace APICatalogo.Controllers
         {
             try
             {
+                //throw new Exception(); Para testar o tratamento do erro 500
                 return _aPICatalogoDbContext.Categorias.AsNoTracking().ToList();
             }
             catch (Exception) //Geralmente erros de exceção estão ligados a erros de servidor e acesso a bd
@@ -36,10 +37,16 @@ namespace APICatalogo.Controllers
         }
 
         [HttpGet("{id}", Name = "ObterCategoria")]
-        public ActionResult<Categoria> Get(int id)
+        public ActionResult<Categoria> Get(int? id)
         {
             try
             {
+                //throw new Exception();
+                if(id == null)
+                {
+                    return BadRequest("Id não informado");
+                }
+
                 var categoria = _aPICatalogoDbContext.Categorias.AsNoTracking().FirstOrDefault(x => x.Id == id);
 
                 if (categoria == null)
