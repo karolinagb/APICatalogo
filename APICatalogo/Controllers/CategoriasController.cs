@@ -1,5 +1,6 @@
 ﻿using APICatalogo.Data;
 using APICatalogo.Models;
+using APICatalogo.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -19,6 +20,12 @@ namespace APICatalogo.Controllers
         public CategoriasController(APICatalogoDbContext aPICatalogoDbContext)
         {
             _aPICatalogoDbContext = aPICatalogoDbContext;
+        }
+
+        [HttpGet("saudacao/{nome}")]
+        public ActionResult<string> GetSaudacao([FromServices] IMeuServico meuServico, string nome)
+        {
+            return meuServico.Saudação(nome);
         }
 
         //api/produtos

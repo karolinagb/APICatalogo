@@ -1,6 +1,7 @@
 ﻿using APICatalogo.Data;
 using APICatalogo.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
@@ -45,7 +46,7 @@ namespace APICatalogo.Controllers
         //Name cria uma rota que permite vincular uma resposta Http
         //id:int:min(1) => especifica que o id tem que ser inteiro e no minimo 1
         [HttpGet("{id:int:min(1)}/{param2=Karol}", Name = "ObterProduto")] //Api recebendo dois parametros - Interrogação para dizer que o segundo parâmetro é opcional
-        public async Task<ActionResult<Produto>> Get(int id, string param2) //O param2 também pode receber um valor padrão que eu definir
+        public async Task<ActionResult<Produto>> Get([FromQuery] int id, [FromQuery]string param2) //O param2 também pode receber um valor padrão que eu definir
         {
             var segundoParametro = param2;
 

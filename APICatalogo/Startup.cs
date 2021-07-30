@@ -1,18 +1,12 @@
 using APICatalogo.Data;
+using APICatalogo.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace APICatalogo
 {
@@ -31,6 +25,11 @@ namespace APICatalogo
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<APICatalogoDbContext>(options =>
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+            //A instância do serviço vai ser criada cada vez que ela for solicitada
+            services.AddTransient<IMeuServico, MeuServico>();
+            //AddScoped = a instância vai ser criada uma vez só para cada requisição
+            //AddSingleton = a instância é criada uma vez em toda a aplicação
 
             /*Para resolver o problema de referência cíclica do Json (categorias <-> produtos): 
              * Instale o pacote = Microsoft.AspNetCore.Mvc.NewtonsoftJson
