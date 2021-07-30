@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace APICatalogo.Controllers
 {
@@ -22,12 +23,12 @@ namespace APICatalogo.Controllers
 
         //api/produtos
         [HttpGet]
-        public ActionResult<IEnumerable<Categoria>> Get()
+        public async Task<ActionResult<IEnumerable<Categoria>>> Get()
         {
             try
             {
                 //throw new Exception(); Para testar o tratamento do erro 500
-                return _aPICatalogoDbContext.Categorias.AsNoTracking().ToList();
+                return await _aPICatalogoDbContext.Categorias.AsNoTracking().ToListAsync();
             }
             catch (Exception) //Geralmente erros de exceção estão ligados a erros de servidor e acesso a bd
             {
@@ -39,7 +40,7 @@ namespace APICatalogo.Controllers
 
         //api/produtos/id
         [HttpGet("{id}", Name = "ObterCategoria")]
-        public ActionResult<Categoria> Get(int? id)
+        public async Task<ActionResult<Categoria>> Get(int? id)
         {
             try
             {
@@ -49,7 +50,7 @@ namespace APICatalogo.Controllers
                     return BadRequest("Id não informado");
                 }
 
-                var categoria = _aPICatalogoDbContext.Categorias.AsNoTracking().FirstOrDefault(x => x.Id == id);
+                var categoria = await _aPICatalogoDbContext.Categorias.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
                 if (categoria == null)
                 {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace APICatalogo.Controllers
 {
@@ -32,23 +33,23 @@ namespace APICatalogo.Controllers
 
         [HttpGet]
         //Retorna todos os produtos
-        public ActionResult<IEnumerable<Produto>> Get()
+        public async Task<ActionResult<IEnumerable<Produto>>> Get()
         {
             //Entity Framework rastreia a consulta para ver se teve alteração no objeto
             //Isso pode deixar o desempenho ruim, então em ações Get nós debilitamos isso através do
             //AsNoTracking
-            return _aPICatalogoDbContext.Produtos.AsNoTracking().ToList();
+            return await _aPICatalogoDbContext.Produtos.AsNoTracking().ToListAsync();
         }
 
         //api/produtos/id/valor
         //Name cria uma rota que permite vincular uma resposta Http
         //id:int:min(1) => especifica que o id tem que ser inteiro e no minimo 1
         [HttpGet("{id:int:min(1)}/{param2=Karol}", Name = "ObterProduto")] //Api recebendo dois parametros - Interrogação para dizer que o segundo parâmetro é opcional
-        public ActionResult<Produto> Get(int id, string param2) //O param2 também pode receber um valor padrão que eu definir
+        public async Task<ActionResult<Produto>> Get(int id, string param2) //O param2 também pode receber um valor padrão que eu definir
         {
             var segundoParametro = param2;
 
-            var produto = _aPICatalogoDbContext.Produtos.AsNoTracking().FirstOrDefault(x => x.Id == id);
+            var produto = await _aPICatalogoDbContext.Produtos.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             if(produto == null)
             {
                 return NotFound(); //404
