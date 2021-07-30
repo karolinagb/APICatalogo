@@ -21,10 +21,12 @@ namespace APICatalogo.Controllers
         }
 
         //Para ignorar a rota padrão
-        [HttpGet("/primeiro")] // primeiro
-        [HttpGet("primeiro")] //Uma action pode atender dois endpoints
-        public ActionResult<Produto> Get2()
+        //[HttpGet("/primeiro")] // primeiro
+        //[HttpGet("primeiro")] //Uma action pode atender dois endpoints
+        [HttpGet("{valor:alpha:length(5)}")] //Parâmetro alfanumérico de tamanho 5
+        public ActionResult<Produto> Get2(string valor)
         {
+            var v = valor;
             return _aPICatalogoDbContext.Produtos.FirstOrDefault();
         }
 
@@ -40,7 +42,8 @@ namespace APICatalogo.Controllers
 
         //api/produtos/id/valor
         //Name cria uma rota que permite vincular uma resposta Http
-        [HttpGet("{id}/{param2=Karol}", Name = "ObterProduto")] //Api recebendo dois parametros - Interrogação para dizer que o segundo parâmetro é opcional
+        //id:int:min(1) => especifica que o id tem que ser inteiro e no minimo 1
+        [HttpGet("{id:int:min(1)}/{param2=Karol}", Name = "ObterProduto")] //Api recebendo dois parametros - Interrogação para dizer que o segundo parâmetro é opcional
         public ActionResult<Produto> Get(int id, string param2) //O param2 também pode receber um valor padrão que eu definir
         {
             var segundoParametro = param2;
