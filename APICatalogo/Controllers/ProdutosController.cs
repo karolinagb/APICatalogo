@@ -3,6 +3,7 @@ using APICatalogo.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -73,6 +74,7 @@ namespace APICatalogo.Controllers
             //{
             //    return BadRequest(ModelState);
             //}
+
             _aPICatalogoDbContext.Produtos.Add(produto);
             _aPICatalogoDbContext.SaveChanges();
 
