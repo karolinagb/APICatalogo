@@ -40,3 +40,6 @@ C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\Microsoft.AspNetCore.JsonPa
 C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\Newtonsoft.Json.dll
 C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
+C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\FluentValidation.dll
+C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
+C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll

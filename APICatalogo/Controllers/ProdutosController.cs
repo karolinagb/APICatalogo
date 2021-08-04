@@ -75,6 +75,8 @@ namespace APICatalogo.Controllers
             //    return BadRequest(ModelState);
             //}
 
+            produto.DataCadastro = DateTime.Now;
+
             _aPICatalogoDbContext.Produtos.Add(produto);
             _aPICatalogoDbContext.SaveChanges();
 

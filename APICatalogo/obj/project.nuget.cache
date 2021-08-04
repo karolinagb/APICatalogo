@@ -1,9 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "Q8UM7Ralj76kkcWBiSksnvsc0uoqL0m0wsqMj2HBkJ56zTlqhfkN7/MWZboHipWf8L9EU5Y4o4HkakJ/eNsDqg==",
+  "dgSpecHash": "eWn4hwUBQG/EA4r2VLrJC99hHfNLO3SVFJzVh8H91rqH1P2FcIPsZyMPRrLhCaaczdKfBu4uDylrCC4O7+JXww==",
   "success": true,
   "projectFilePath": "C:\\projetos\\APICatalogo\\APICatalogo\\APICatalogo.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\Karolina\\.nuget\\packages\\fluentvalidation\\10.3.0\\fluentvalidation.10.3.0.nupkg.sha512",
+    "C:\\Users\\Karolina\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.0\\fluentvalidation.aspnetcore.10.3.0.nupkg.sha512",
+    "C:\\Users\\Karolina\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.0\\fluentvalidation.dependencyinjectionextensions.10.3.0.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\5.0.8\\microsoft.aspnetcore.jsonpatch.5.0.8.nupkg.sha512",
     "C:\\Users\\Karolina\\.nuget\\packages\\microsoft.aspnetcore.mvc.newtonsoftjson\\5.0.8\\microsoft.aspnetcore.mvc.newtonsoftjson.5.0.8.nupkg.sha512",
