@@ -1,5 +1,8 @@
 using APICatalogo.Data;
+using APICatalogo.Models;
+using APICatalogo.Models.ViewModels;
 using APICatalogo.Services;
+using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -45,6 +48,14 @@ namespace APICatalogo
 
             //Adicionando o Fluent Validation ao pipeline
             services.AddMvc().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
+
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProdutoViewModel, Produto>();
+            });
+
+            IMapper mapper = config.CreateMapper();
+            services.AddSingleton(mapper);  
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

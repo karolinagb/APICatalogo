@@ -1,5 +1,7 @@
 ﻿using APICatalogo.Data;
 using APICatalogo.Models;
+using APICatalogo.Models.ViewModels;
+using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
@@ -17,10 +19,12 @@ namespace APICatalogo.Controllers
                                                      //A classe ControllerBase vai incluir diversas funcionalidade para uma API e vai omitir as funcionalidades de suporte as Views
     {
         private readonly APICatalogoDbContext _aPICatalogoDbContext;
+        private readonly IMapper _mapper;
 
-        public ProdutosController(APICatalogoDbContext aPICatalogoDbContext)
+        public ProdutosController(APICatalogoDbContext aPICatalogoDbContext, IMapper mapper)
         {
             _aPICatalogoDbContext = aPICatalogoDbContext;
+            _mapper = mapper;
         }
 
         //Para ignorar a rota padrão
@@ -63,7 +67,7 @@ namespace APICatalogo.Controllers
         //do corpo da requisição
         //O ModelBind vincula os parÂmetros do corpo do request com os parâmetros da action post
         [HttpPost]
-        public ActionResult Post([FromBody]Produto produto)
+        public ActionResult Post([FromBody]ProdutoViewModel produtoViewModel)
         {
             //O ModelState é uma propriedade da classe controller que representa uma coleção de pares "nome" "valor"
             //que são submetidos no servidor durante o post. Ele cnontém uma cleção de mensagens de erro para cada valor submetido.
@@ -75,7 +79,9 @@ namespace APICatalogo.Controllers
             //    return BadRequest(ModelState);
             //}
 
-            produto.DataCadastro = DateTime.Now;
+            produtoViewModel.DataCadastro = DateTime.Now;
+
+            var produto = _mapper.Map<Produto>(produtoViewModel);
 
             _aPICatalogoDbContext.Produtos.Add(produto);
             _aPICatalogoDbContext.SaveChanges();

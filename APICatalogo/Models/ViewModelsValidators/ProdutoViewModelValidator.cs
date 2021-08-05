@@ -1,8 +1,9 @@
-﻿using FluentValidation;
+﻿using APICatalogo.Models.ViewModels;
+using FluentValidation;
 
 namespace APICatalogo.Models.ViewModelsValidators
 {
-    public class ProdutoViewModelValidator : AbstractValidator<Produto>
+    public class ProdutoViewModelValidator : AbstractValidator<ProdutoViewModel>
     {
         public ProdutoViewModelValidator()
         {

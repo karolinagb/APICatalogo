@@ -43,3 +43,4 @@ C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
 C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\FluentValidation.dll
 C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\FluentValidation.AspNetCore.dll
 C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\FluentValidation.DependencyInjectionExtensions.dll
+C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\AutoMapper.dll
