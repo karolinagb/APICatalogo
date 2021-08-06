@@ -74,6 +74,9 @@ namespace APICatalogo
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "APICatalogo v1"));
             }
 
+            //adiciona o middleware de tratamento de erros
+            //app.ConfigureExceptionHandler;
+
             //Adiciona o middleware para redirecionar para https
             app.UseHttpsRedirection();
 

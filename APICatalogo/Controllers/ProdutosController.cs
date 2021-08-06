@@ -39,7 +39,8 @@ namespace APICatalogo.Controllers
         }
 
         [HttpGet]
-        [ServiceFilter(typeof(ApiLoggingFilter))]
+        [ServiceFilter(typeof(ApiLoggingFilter))] //Essa anotação resolver a classe de container e temos que utiliza-la
+        //porque estamos utilizando a injeção de dependência
         //Retorna todos os produtos
         public async Task<ActionResult<IEnumerable<Produto>>> Get()
         {
@@ -55,6 +56,8 @@ namespace APICatalogo.Controllers
         [HttpGet("{id:int:min(1)}/{param2=Karol}", Name = "ObterProduto")] //Api recebendo dois parametros - Interrogação para dizer que o segundo parâmetro é opcional
         public async Task<ActionResult<Produto>> Get([FromQuery] int id, [FromQuery]string param2) //O param2 também pode receber um valor padrão que eu definir
         {
+            throw new Exception("Exception ao retornar produto pelo id");
+
             var segundoParametro = param2;
 
             var produto = await _aPICatalogoDbContext.Produtos.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
