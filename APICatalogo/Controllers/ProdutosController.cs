@@ -1,4 +1,5 @@
-﻿using APICatalogo.Data;
+﻿using ApiCatalogo.Filters;
+using APICatalogo.Data;
 using APICatalogo.Models;
 using APICatalogo.Models.ViewModels;
 using AutoMapper;
@@ -38,6 +39,7 @@ namespace APICatalogo.Controllers
         }
 
         [HttpGet]
+        [ServiceFilter(typeof(ApiLoggingFilter))]
         //Retorna todos os produtos
         public async Task<ActionResult<IEnumerable<Produto>>> Get()
         {

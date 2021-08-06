@@ -1,3 +1,4 @@
+using ApiCatalogo.Filters;
 using APICatalogo.Data;
 using APICatalogo.Models;
 using APICatalogo.Models.ViewModels;
@@ -55,10 +56,15 @@ namespace APICatalogo
             });
 
             IMapper mapper = config.CreateMapper();
-            services.AddSingleton(mapper);  
+            services.AddSingleton(mapper);
+
+            services.AddScoped<ApiLoggingFilter>(); //COnfigurando o serviço de filtro personalizado
+            //AddScoped = uma instância para cada requisição
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        //ApplicationBuilder é uma classe que fornece um mecanismo para configurar o pipeline da requisição
+        //IWebHostEnvironment = Permite definir em qual ambiente estamos trabalhando
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -74,6 +80,9 @@ namespace APICatalogo
             //adiciona o middleware de roteamento
             app.UseRouting();
 
+            //Adiciona o middleware de autenticação ao pipeline
+            app.UseAuthentication();
+
             //adiciona o middleware que habilita a autorização
             app.UseAuthorization();
 
@@ -84,6 +93,15 @@ namespace APICatalogo
                 //Adiciona os endpoints para as actions dos controladores sem especificar rotas
                 endpoints.MapControllers();
             });
+
+            //Além de habilitar um middleware através do Use (app.UseEndpoints), também podemos incluir middlewares
+            //customizados através do Run (app.Run) . O Middlewares definidos com Run são middlewares finais, após eles,
+            //nenhum outro middleware será chamado.
+
+            //app.Run(async (context) =>
+            //{
+            //    await context.Response.WriteAsync("Middleware final");
+            //});
         }
     }
 }
