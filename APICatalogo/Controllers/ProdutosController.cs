@@ -84,9 +84,10 @@ namespace APICatalogo.Controllers
             //    return BadRequest(ModelState);
             //}
 
-            produtoViewModel.DataCadastro = DateTime.Now;
+            //produtoViewModel.DataCadastro = DateTime.Now;
 
             var produto = _mapper.Map<Produto>(produtoViewModel);
+            produto.DataCadastro = DateTime.Now;
 
             _aPICatalogoDbContext.Produtos.Add(produto);
             _aPICatalogoDbContext.SaveChanges();

@@ -52,7 +52,9 @@ namespace APICatalogo
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ProdutoViewModel, Produto>();
+                cfg.CreateMap<ProdutoViewModel, Produto>()
+                .IgnoreAllPropertiesWithAnInaccessibleSetter()
+                    .ForPath(x => x.DataCadastro, option => option.Ignore());
             });
 
             IMapper mapper = config.CreateMapper();
