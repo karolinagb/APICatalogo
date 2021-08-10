@@ -4,6 +4,7 @@ using APICatalogo.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,24 +17,28 @@ namespace APICatalogo.Controllers
     public class CategoriasController : ControllerBase
     {
         private readonly APICatalogoDbContext _aPICatalogoDbContext;
+        private readonly ILogger _logger;
 
-        public CategoriasController(APICatalogoDbContext aPICatalogoDbContext)
+        public CategoriasController(APICatalogoDbContext aPICatalogoDbContext, ILogger<CategoriasController> logger)
         {
             _aPICatalogoDbContext = aPICatalogoDbContext;
+            _logger = logger;
         }
 
         [HttpGet("saudacao/{nome}")]
         public ActionResult<string> GetSaudacao([FromServices] IMeuServico meuServico, string nome)
         {
+            _logger.LogInformation("================ GET api/categorias/saudacao/nome ====================");
             return meuServico.Saudação(nome);
         }
 
-        //api/produtos
+        //api/categorias
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Categoria>>> Get()
         {
             try
             {
+                _logger.LogInformation("================ GET api/categorias ====================");
                 //throw new Exception(); Para testar o tratamento do erro 500
                 return await _aPICatalogoDbContext.Categorias.AsNoTracking().ToListAsync();
             }
@@ -59,8 +64,11 @@ namespace APICatalogo.Controllers
 
                 var categoria = await _aPICatalogoDbContext.Categorias.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
 
+                _logger.LogInformation($"================ GET api/categorias/id = {id} ====================");
+
                 if (categoria == null)
                 {
+                    _logger.LogInformation($"================ GET api/categorias/id = {id} NOT FOUND ====================");
                     return NotFound($"A categoria com Id = {id} não foi encontrada"); //404
                 }
 
