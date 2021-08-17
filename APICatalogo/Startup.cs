@@ -3,6 +3,7 @@ using APICatalogo.Data;
 using APICatalogo.Logging;
 using APICatalogo.Models;
 using APICatalogo.Models.ViewModels;
+using APICatalogo.Models.ViewModels.Mappings;
 using APICatalogo.Repositories;
 using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Services;
@@ -59,9 +60,7 @@ namespace APICatalogo
 
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<ProdutoViewModel, Produto>()
-                .IgnoreAllPropertiesWithAnInaccessibleSetter()
-                    .ForPath(x => x.DataCadastro, option => option.Ignore());
+                cfg.AddProfile(new MappingProfile());
             });
 
             IMapper mapper = config.CreateMapper();

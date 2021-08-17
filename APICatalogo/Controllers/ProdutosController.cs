@@ -1,16 +1,11 @@
 ﻿using ApiCatalogo.Filters;
-using APICatalogo.Data;
 using APICatalogo.Models;
 using APICatalogo.Models.ViewModels;
-using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Transactions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace APICatalogo.Controllers
