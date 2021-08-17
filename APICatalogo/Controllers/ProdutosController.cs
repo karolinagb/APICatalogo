@@ -1,6 +1,7 @@
 ﻿using ApiCatalogo.Filters;
 using APICatalogo.Models;
 using APICatalogo.Models.ViewModels;
+using APICatalogo.Pagination;
 using APICatalogo.Transactions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
@@ -39,14 +40,14 @@ namespace APICatalogo.Controllers
         [ServiceFilter(typeof(ApiLoggingFilter))] //Essa anotação resolver a classe de container e temos que utiliza-la
         //porque estamos utilizando a injeção de dependência
         //Retorna todos os produtos
-        public async Task<ActionResult<IEnumerable<Produto>>> Get()
+        public async Task<ActionResult<IEnumerable<Produto>>> Get([FromQuery] ProdutosParameters produtosParameters)
         {
             //Entity Framework rastreia a consulta para ver se teve alteração no objeto
             //Isso pode deixar o desempenho ruim, então em ações Get nós desabilitamos isso através do
             //AsNoTracking
             //return await _aPICatalogoDbContext.Produtos.AsNoTracking().ToListAsync();
 
-            return await _unitOfWork.ProdutoRepository.Get();
+            return await _unitOfWork.ProdutoRepository.GetProdutos(produtosParameters);
         }
 
         //api/produtos/id
