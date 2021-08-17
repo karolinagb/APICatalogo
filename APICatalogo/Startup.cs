@@ -3,7 +3,10 @@ using APICatalogo.Data;
 using APICatalogo.Logging;
 using APICatalogo.Models;
 using APICatalogo.Models.ViewModels;
+using APICatalogo.Repositories;
+using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Services;
+using APICatalogo.Transactions;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
@@ -37,6 +40,8 @@ namespace APICatalogo
             services.AddTransient<IMeuServico, MeuServico>();
             //AddScoped = a instância vai ser criada uma vez só para cada requisição
             //AddSingleton = a instância é criada uma vez em toda a aplicação
+
+            services.AddTransient<IUnitOfWork, UnitOfWork>();
 
             /*Para resolver o problema de referência cíclica do Json (categorias <-> produtos): 
              * Instale o pacote = Microsoft.AspNetCore.Mvc.NewtonsoftJson

@@ -1,6 +1,7 @@
 ﻿using APICatalogo.Data;
 using APICatalogo.Models;
 using APICatalogo.Services;
+using APICatalogo.Transactions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,11 +18,13 @@ namespace APICatalogo.Controllers
     public class CategoriasController : ControllerBase
     {
         private readonly APICatalogoDbContext _aPICatalogoDbContext;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
 
-        public CategoriasController(APICatalogoDbContext aPICatalogoDbContext, ILogger<CategoriasController> logger)
+        public CategoriasController(APICatalogoDbContext aPICatalogoDbContext, IUnitOfWork unitOfWork, ILogger<CategoriasController> logger)
         {
             _aPICatalogoDbContext = aPICatalogoDbContext;
+            _unitOfWork = unitOfWork;
             _logger = logger;
         }
 
@@ -40,7 +43,7 @@ namespace APICatalogo.Controllers
             {
                 _logger.LogInformation("================ GET api/categorias ====================");
                 //throw new Exception(); Para testar o tratamento do erro 500
-                return await _aPICatalogoDbContext.Categorias.AsNoTracking().ToListAsync();
+                return await _unitOfWork.CategoriaRepository.Get();
             }
             catch (Exception) //Geralmente erros de exceção estão ligados a erros de servidor e acesso a bd
             {
@@ -50,9 +53,9 @@ namespace APICatalogo.Controllers
             
         }
 
-        //api/produtos/id
+        //api/categorias/id
         [HttpGet("{id}", Name = "ObterCategoria")]
-        public async Task<ActionResult<Categoria>> Get(int? id)
+        public ActionResult<Categoria> Get(int? id)
         {
             try
             {
@@ -62,7 +65,7 @@ namespace APICatalogo.Controllers
                     return BadRequest("Id não informado");
                 }
 
-                var categoria = await _aPICatalogoDbContext.Categorias.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
+                var categoria = _unitOfWork.CategoriaRepository.GetById(x => x.Id == id);
 
                 _logger.LogInformation($"================ GET api/categorias/id = {id} ====================");
 
@@ -88,8 +91,8 @@ namespace APICatalogo.Controllers
         {
             try
             {
-                _aPICatalogoDbContext.Categorias.Add(categoria);
-                _aPICatalogoDbContext.SaveChanges();
+                _unitOfWork.CategoriaRepository.Add(categoria);
+                _unitOfWork.Commit();
 
                 return new CreatedAtRouteResult("ObterCategoria", new { id = categoria.Id }, categoria);
             }
@@ -111,8 +114,8 @@ namespace APICatalogo.Controllers
                     return BadRequest($"Id não correspondente. Id da URI = {id} e Id da categoria passada = {categoria.Id}"); //400
                 }
 
-                _aPICatalogoDbContext.Entry(categoria).State = EntityState.Modified;
-                _aPICatalogoDbContext.SaveChanges();
+                _unitOfWork.CategoriaRepository.Update(categoria);
+                _unitOfWork.Commit();
 
                 return Ok($"A categoria com Id = {id} foi atualizada com sucesso"); //Http200
             }
@@ -135,8 +138,8 @@ namespace APICatalogo.Controllers
                     return NotFound($"Categoria com Id = {id} não encontrada"); //404
                 }
 
-                _aPICatalogoDbContext.Categorias.Remove(categoria);
-                _aPICatalogoDbContext.SaveChanges();
+                _unitOfWork.CategoriaRepository.Delete(categoria);
+                _unitOfWork.Commit();
                 return categoria;
             }
             catch (Exception)
@@ -148,9 +151,9 @@ namespace APICatalogo.Controllers
         }
 
         [HttpGet("produtos")]
-        public ActionResult<IEnumerable<Categoria>> GetCategoriasProdutos()
+        public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoriasProdutos()
         {
-            return _aPICatalogoDbContext.Categorias.Include(x => x.Produtos).AsNoTracking().ToList();
+            return await _unitOfWork.CategoriaRepository.GetCategoriasProdutos();
         }
     }
 }

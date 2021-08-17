@@ -13,8 +13,8 @@ namespace APICatalogo.Extensions
     public static class ApiExceptionMiddlewareExtensions
     {
         //Método para definir o tratamento de erros
-        public static void ConfigureExceptionHandler(IApplicationBuilder app) //Recebe instância da aplicação
-        {
+        public static void ConfigureExceptionHandler(this IApplicationBuilder app) //Recebe instância da aplicação
+        {//Tem que colocar o this para dizer que é um método de extensão
             //Para usar o middleware de tratamento de exceções
             app.UseExceptionHandler(appError =>
             {

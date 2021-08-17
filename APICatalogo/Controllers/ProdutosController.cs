@@ -2,6 +2,8 @@
 using APICatalogo.Data;
 using APICatalogo.Models;
 using APICatalogo.Models.ViewModels;
+using APICatalogo.Repositories.Interfaces;
+using APICatalogo.Transactions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
@@ -19,12 +21,12 @@ namespace APICatalogo.Controllers
     public class ProdutosController : ControllerBase //Herda de controller base para ter recursos de atender requisições HTTP
                                                      //A classe ControllerBase vai incluir diversas funcionalidade para uma API e vai omitir as funcionalidades de suporte as Views
     {
-        private readonly APICatalogoDbContext _aPICatalogoDbContext;
+        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
 
-        public ProdutosController(APICatalogoDbContext aPICatalogoDbContext, IMapper mapper)
+        public ProdutosController(IUnitOfWork unitOfWork, IMapper mapper)
         {
-            _aPICatalogoDbContext = aPICatalogoDbContext;
+            _unitOfWork = unitOfWork;
             _mapper = mapper;
         }
 
@@ -32,11 +34,11 @@ namespace APICatalogo.Controllers
         //[HttpGet("/primeiro")] // primeiro
         //[HttpGet("primeiro")] //Uma action pode atender dois endpoints
         [HttpGet("{valor:alpha:length(5)}")] //Parâmetro alfanumérico de tamanho 5
-        public ActionResult<Produto> Get2(string valor)
-        {
-            var v = valor;
-            return _aPICatalogoDbContext.Produtos.FirstOrDefault();
-        }
+        //public ActionResult<Produto> Get2(string valor)
+        //{
+        //    var v = valor;
+        //    return _aPICatalogoDbContext.Produtos.FirstOrDefault();
+        //}
 
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))] //Essa anotação resolver a classe de container e temos que utiliza-la
@@ -45,22 +47,23 @@ namespace APICatalogo.Controllers
         public async Task<ActionResult<IEnumerable<Produto>>> Get()
         {
             //Entity Framework rastreia a consulta para ver se teve alteração no objeto
-            //Isso pode deixar o desempenho ruim, então em ações Get nós debilitamos isso através do
+            //Isso pode deixar o desempenho ruim, então em ações Get nós desabilitamos isso através do
             //AsNoTracking
-            return await _aPICatalogoDbContext.Produtos.AsNoTracking().ToListAsync();
+            //return await _aPICatalogoDbContext.Produtos.AsNoTracking().ToListAsync();
+
+            return await _unitOfWork.ProdutoRepository.Get();
         }
 
-        //api/produtos/id/valor
+        //api/produtos/id
         //Name cria uma rota que permite vincular uma resposta Http
         //id:int:min(1) => especifica que o id tem que ser inteiro e no minimo 1
-        [HttpGet("{id:int:min(1)}/{param2=Karol}", Name = "ObterProduto")] //Api recebendo dois parametros - Interrogação para dizer que o segundo parâmetro é opcional
-        public async Task<ActionResult<Produto>> Get([FromQuery] int id, [FromQuery]string param2) //O param2 também pode receber um valor padrão que eu definir
+        [HttpGet("{id:int:min(1)}", Name = "ObterProduto")] //Api recebendo dois parametros - Interrogação para dizer que o segundo parâmetro é opcional
+        public ActionResult<Produto> Get(int id) //O param2 também pode receber um valor padrão que eu definir
         {
-            throw new Exception("Exception ao retornar produto pelo id");
+            //throw new Exception("Exception ao retornar produto pelo id");
 
-            var segundoParametro = param2;
+            var produto = _unitOfWork.ProdutoRepository.GetById(x => x.Id == id);
 
-            var produto = await _aPICatalogoDbContext.Produtos.AsNoTracking().FirstOrDefaultAsync(x => x.Id == id);
             if(produto == null)
             {
                 return NotFound(); //404
@@ -89,8 +92,8 @@ namespace APICatalogo.Controllers
             var produto = _mapper.Map<Produto>(produtoViewModel);
             produto.DataCadastro = DateTime.Now;
 
-            _aPICatalogoDbContext.Produtos.Add(produto);
-            _aPICatalogoDbContext.SaveChanges();
+            _unitOfWork.ProdutoRepository.Add(produto);
+            _unitOfWork.Commit();
 
             //Retornar o codigo 201 CreatedAt
             //Quando criamos um produto, temos que retornar a localização de um produto
@@ -112,8 +115,8 @@ namespace APICatalogo.Controllers
             }
 
             //Para alterar o estado dessa entidade com Modified
-            _aPICatalogoDbContext.Entry(produto).State = EntityState.Modified;
-            _aPICatalogoDbContext.SaveChanges();
+            _unitOfWork.ProdutoRepository.Update(produto);
+            _unitOfWork.Commit();
 
             return Ok(); //Http200
         }
@@ -121,16 +124,22 @@ namespace APICatalogo.Controllers
         [HttpDelete("{id}")]
         public ActionResult<Produto> Delete(int id)
         {
-            var produto = _aPICatalogoDbContext.Produtos.FirstOrDefault(x => x.Id == id);
+            var produto = _unitOfWork.ProdutoRepository.GetById(x => x.Id == id);
 
             if(produto == null)
             {
                 return NotFound();
             }
 
-            _aPICatalogoDbContext.Produtos.Remove(produto);
-            _aPICatalogoDbContext.SaveChanges();
+            _unitOfWork.ProdutoRepository.Delete(produto);
+            _unitOfWork.Commit();
             return produto;
+        }
+
+        [HttpGet("menorpreco")]
+        public async Task<ActionResult<IEnumerable<Produto>>> GetProdutosPrecos()
+        {
+            return await _unitOfWork.ProdutoRepository.GetProdutoPorPreco();
         }
     }
 }
