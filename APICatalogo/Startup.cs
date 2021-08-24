@@ -1,17 +1,14 @@
 using ApiCatalogo.Filters;
 using APICatalogo.Data;
 using APICatalogo.Logging;
-using APICatalogo.Models;
-using APICatalogo.Models.ViewModels;
 using APICatalogo.Models.ViewModels.Mappings;
-using APICatalogo.Repositories;
-using APICatalogo.Repositories.Interfaces;
 using APICatalogo.Services;
 using APICatalogo.Transactions;
 using AutoMapper;
 using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,6 +33,10 @@ namespace APICatalogo
             string connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<APICatalogoDbContext>(options =>
             options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString)));
+
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<APICatalogoDbContext>()
+                .AddDefaultTokenProviders();
 
             //A instância do serviço vai ser criada cada vez que ela for solicitada
             services.AddTransient<IMeuServico, MeuServico>();

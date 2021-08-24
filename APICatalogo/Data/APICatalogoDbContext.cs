@@ -1,9 +1,10 @@
 ﻿using APICatalogo.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace APICatalogo.Data
 {
-    public class APICatalogoDbContext : DbContext
+    public class APICatalogoDbContext : IdentityDbContext
     {
         public APICatalogoDbContext(DbContextOptions<APICatalogoDbContext> options) : base(options)
         {
@@ -26,7 +27,7 @@ namespace APICatalogo.Data
                 x.HasKey(x => x.Id);
                 x.Property(x => x.Nome).HasColumnType("VARCHAR(100)").IsRequired();
                 x.Property(x => x.Descricao).HasColumnType("TEXT").IsRequired();
-                x.Property(x => x.Preco).HasColumnType("DECIMAL(18,2)").IsRequired();
+                x.Property(x => x.Preco).HasColumnType("DECIMAL(8,2)").IsRequired();
                 x.Property(x => x.ImagemUrl).HasColumnType("TEXT").IsRequired();
                 x.Property(x => x.Estoque).HasColumnType("FLOAT").IsRequired();
                 x.Property(x => x.DataCadastro).HasColumnType("DATE").IsRequired(); //EF vai gerar esse codigo SQL na hora da criação do banco
