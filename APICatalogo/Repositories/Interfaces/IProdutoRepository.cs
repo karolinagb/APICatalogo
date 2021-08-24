@@ -11,6 +11,6 @@ namespace APICatalogo.Repositories.Interfaces
         //Posso colocar métodos adicionais
         public Task<List<Produto>> GetProdutoPorPreco();
 
-        public Task<List<Produto>> GetProdutos(ProdutosParameters produtosParameters);
+        public Task<PagedList<Produto>> GetProdutos(ProdutosParameters produtosParameters);
     }
 }

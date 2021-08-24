@@ -313,3 +313,153 @@ Information: 0 - ### Executando -> OnActionExecuted
 Information: 0 - ############################################
 Information: 0 - 16:44:36
 Information: 0 - ###############################################
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\projetos\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 11:48:01
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 11:51:16
+Information: 0 - ###############################################
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\projetos\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 11:52:33
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 11:52:40
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 11:54:25
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 11:55:05
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 11:55:26
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 11:55:30
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 11:55:45
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 11:55:48
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 11:55:58
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 11:55:59
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 11:57:31
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 11:57:33
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 12:14:57
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 12:15:03
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 12:15:30
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 12:15:30
+Information: 0 - ###############################################
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\projetos\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 15:27:19
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 15:27:20
+Information: 0 - ###############################################
+Information: 0 - ================ GET api/categorias ====================
+Information: 0 - ================ GET api/categorias ====================
+Information: 0 - ================ GET api/categorias ====================
+Information: 0 - ================ GET api/categorias ====================
+Information: 0 - ================ GET api/categorias ====================
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\projetos\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 15:15:51
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 15:15:53
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 15:16:16
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 15:16:16
+Information: 0 - ###############################################
+Error: 1 - An unhandled exception has occurred while executing the request.
+Error: 1 - An unhandled exception has occurred while executing the request.
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\projetos\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 15:35:10
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 15:35:12
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 15:35:34
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 15:35:34
+Information: 0 - ###############################################
+Information: 0 - ================ GET api/categorias ====================
+Information: 0 - ================ GET api/categorias ====================

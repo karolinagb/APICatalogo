@@ -1,4 +1,5 @@
 ﻿using APICatalogo.Repositories.Interfaces;
+using System.Threading.Tasks;
 
 namespace APICatalogo.Transactions
 {
@@ -6,7 +7,7 @@ namespace APICatalogo.Transactions
     {
         IProdutoRepository ProdutoRepository { get; }
         ICategoriaRepository CategoriaRepository { get; }
-        void Commit();
+        Task Commit();
         void Dispose();
     }
 }

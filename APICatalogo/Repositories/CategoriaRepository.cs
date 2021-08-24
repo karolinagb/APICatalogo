@@ -1,5 +1,6 @@
 ﻿using APICatalogo.Data;
 using APICatalogo.Models;
+using APICatalogo.Pagination;
 using APICatalogo.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -12,6 +13,12 @@ namespace APICatalogo.Repositories
     {
         public CategoriaRepository(APICatalogoDbContext aPICatalogoDbContext) : base(aPICatalogoDbContext)
         {
+        }
+
+        public async Task<PagedList<Categoria>> GetCategorias(CategoriasParameters categoriasParameters)
+        {
+            return await PagedList<Categoria>.ToPagedList(_aPICatalogoDbContext.Categorias.OrderBy(x => x.Id), categoriasParameters.PageNumber,
+                categoriasParameters.PageSize);
         }
 
         public async Task<List<Categoria>> GetCategoriasProdutos()

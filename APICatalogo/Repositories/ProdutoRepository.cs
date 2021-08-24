@@ -20,12 +20,11 @@ namespace APICatalogo.Repositories
             //return Get().OrderBy(c => c.Preco).ToList();
         }
 
-        public async Task<List<Produto>> GetProdutos(ProdutosParameters produtosParameters)
+        public async Task<PagedList<Produto>> GetProdutos(ProdutosParameters produtosParameters)
         {
-            return await _aPICatalogoDbContext.Produtos.OrderBy(x => x.Nome)
-                .Skip((produtosParameters.PageNumber - 1) * produtosParameters.PageSize)
-                .Take(produtosParameters.PageSize)
-                .ToListAsync();
+
+            return await PagedList<Produto>.ToPagedList(_aPICatalogoDbContext.Produtos
+                .OrderBy(x => x.Nome), produtosParameters.PageNumber, produtosParameters.PageSize);
         }
     }
 }

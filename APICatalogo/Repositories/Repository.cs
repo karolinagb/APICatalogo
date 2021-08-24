@@ -3,7 +3,6 @@ using APICatalogo.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -38,9 +37,9 @@ namespace APICatalogo.Repositories
             return await _aPICatalogoDbContext.Set<T>().AsNoTracking().ToListAsync();
         }
 
-        public T GetById(Expression<Func<T, bool>> predicate) // Essa expressão seria: x => x.Id == id
+        public async Task<T> GetById(Expression<Func<T, bool>> predicate) // Essa expressão seria: x => x.Id == id
         {
-            return _aPICatalogoDbContext.Set<T>().SingleOrDefault(predicate); //Nessa classe T genérica se eu colocasse no
+            return await _aPICatalogoDbContext.Set<T>().SingleOrDefaultAsync(predicate); //Nessa classe T genérica se eu colocasse no
                                                                               //SingleOrDefault assim x => x.Id == id,
                                                                               //não iria funcionar por a classe T não ser
                                                                               //uma tabela nem nada e sim algo genérico

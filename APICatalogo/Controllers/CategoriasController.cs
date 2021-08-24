@@ -1,14 +1,13 @@
-﻿using APICatalogo.Data;
-using APICatalogo.Models;
+﻿using APICatalogo.Models;
+using APICatalogo.Pagination;
 using APICatalogo.Services;
 using APICatalogo.Transactions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace APICatalogo.Controllers
@@ -17,13 +16,11 @@ namespace APICatalogo.Controllers
     [ApiController]
     public class CategoriasController : ControllerBase
     {
-        private readonly APICatalogoDbContext _aPICatalogoDbContext;
         private readonly IUnitOfWork _unitOfWork;
         private readonly ILogger _logger;
 
-        public CategoriasController(APICatalogoDbContext aPICatalogoDbContext, IUnitOfWork unitOfWork, ILogger<CategoriasController> logger)
+        public CategoriasController(IUnitOfWork unitOfWork, ILogger<CategoriasController> logger)
         {
-            _aPICatalogoDbContext = aPICatalogoDbContext;
             _unitOfWork = unitOfWork;
             _logger = logger;
         }
@@ -37,13 +34,27 @@ namespace APICatalogo.Controllers
 
         //api/categorias
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Categoria>>> Get()
+        public async Task<ActionResult<IEnumerable<Categoria>>> Get([FromQuery] CategoriasParameters categoriasParameters)
         {
             try
             {
                 _logger.LogInformation("================ GET api/categorias ====================");
                 //throw new Exception(); Para testar o tratamento do erro 500
-                return await _unitOfWork.CategoriaRepository.Get();
+                var categorias = await _unitOfWork.CategoriaRepository.GetCategorias(categoriasParameters);
+
+                var metadata = new
+                {
+                    categorias.TotalCount,
+                    categorias.PageSize,
+                    categorias.CurrentPage,
+                    categorias.TotalPages,
+                    categorias.HasNext,
+                    categorias.HasPrevious
+                };
+
+                Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+                return categorias;
             }
             catch (Exception) //Geralmente erros de exceção estão ligados a erros de servidor e acesso a bd
             {
@@ -55,7 +66,7 @@ namespace APICatalogo.Controllers
 
         //api/categorias/id
         [HttpGet("{id}", Name = "ObterCategoria")]
-        public ActionResult<Categoria> Get(int? id)
+        public async Task<ActionResult<Categoria>> Get(int? id)
         {
             try
             {
@@ -65,7 +76,7 @@ namespace APICatalogo.Controllers
                     return BadRequest("Id não informado");
                 }
 
-                var categoria = _unitOfWork.CategoriaRepository.GetById(x => x.Id == id);
+                var categoria = await _unitOfWork.CategoriaRepository.GetById(x => x.Id == id);
 
                 _logger.LogInformation($"================ GET api/categorias/id = {id} ====================");
 
@@ -87,12 +98,12 @@ namespace APICatalogo.Controllers
 
         //api/produtos
         [HttpPost] //Os métodos actions atendem as requisições para os respectivos verbos Http's
-        public ActionResult Post([FromBody] Categoria categoria)
+        public async Task<ActionResult> Post([FromBody] Categoria categoria)
         {
             try
             {
                 _unitOfWork.CategoriaRepository.Add(categoria);
-                _unitOfWork.Commit();
+                await _unitOfWork.Commit();
 
                 return new CreatedAtRouteResult("ObterCategoria", new { id = categoria.Id }, categoria);
             }
@@ -105,7 +116,7 @@ namespace APICatalogo.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Put(int id, [FromBody] Categoria categoria)
+        public async Task<ActionResult> Put(int id, [FromBody] Categoria categoria)
         {
             try
             {
@@ -115,7 +126,7 @@ namespace APICatalogo.Controllers
                 }
 
                 _unitOfWork.CategoriaRepository.Update(categoria);
-                _unitOfWork.Commit();
+                await _unitOfWork.Commit();
 
                 return Ok($"A categoria com Id = {id} foi atualizada com sucesso"); //Http200
             }
@@ -127,11 +138,11 @@ namespace APICatalogo.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Categoria> Delete(int id)
+        public async Task<ActionResult<Categoria>> Delete(int id)
         {
             try
             {
-                var categoria = _aPICatalogoDbContext.Categorias.FirstOrDefault(x => x.Id == id);
+                var categoria = await _unitOfWork.CategoriaRepository.GetById(x => x.Id == id);
 
                 if (categoria == null)
                 {
@@ -139,7 +150,7 @@ namespace APICatalogo.Controllers
                 }
 
                 _unitOfWork.CategoriaRepository.Delete(categoria);
-                _unitOfWork.Commit();
+                await _unitOfWork.Commit();
                 return categoria;
             }
             catch (Exception)

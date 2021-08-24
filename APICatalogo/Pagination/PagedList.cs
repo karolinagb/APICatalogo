@@ -1,0 +1,40 @@
+﻿using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace APICatalogo.Pagination
+{
+    public class PagedList<T> : List<T>
+    {
+        public int CurrentPage { get; private set; }
+        public int TotalPages { get; private set; }
+        public int PageSize { get; private set; }
+        public int TotalCount { get; private set; }
+
+        public bool HasPrevious => CurrentPage > 1; //Vai receber true se essa condição for verdadeira
+        public bool HasNext => CurrentPage < TotalPages;
+
+        public PagedList(List<T> items, int count, int pageNumber, int pageSize)
+        {
+            TotalCount = count; //Número total de registros que tem para paginar
+            PageSize = pageSize;
+            CurrentPage = pageNumber;
+            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+
+            AddRange(items);
+        }
+
+        public async static Task<PagedList<T>> ToPagedList(IQueryable<T> source, int pageNumber, int pageSize)
+        {
+            var count = source.Count(); //Calcular quanto itens no total tem para paginar
+            var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
+
+            return new PagedList<T>(items, count, pageNumber, pageSize);
+
+            //Quando IQueryable for usado como retorno, não precisa definir async pois IQueryable já
+            //faz o método ser assíncrono
+        }
+    }
+}

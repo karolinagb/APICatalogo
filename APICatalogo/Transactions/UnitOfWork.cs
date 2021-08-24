@@ -1,6 +1,7 @@
 ﻿using APICatalogo.Data;
 using APICatalogo.Repositories;
 using APICatalogo.Repositories.Interfaces;
+using System.Threading.Tasks;
 
 namespace APICatalogo.Transactions
 {
@@ -32,9 +33,9 @@ namespace APICatalogo.Transactions
             }
         }
 
-        public void Commit()
+        public async Task Commit()
         {
-            _aPICatalogoDbContext.SaveChanges();
+            await _aPICatalogoDbContext.SaveChangesAsync();
         }
 
         public void Dispose()

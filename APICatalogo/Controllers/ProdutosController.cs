@@ -5,6 +5,7 @@ using APICatalogo.Pagination;
 using APICatalogo.Transactions;
 using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -29,7 +30,7 @@ namespace APICatalogo.Controllers
         //Para ignorar a rota padrão
         //[HttpGet("/primeiro")] // primeiro
         //[HttpGet("primeiro")] //Uma action pode atender dois endpoints
-        [HttpGet("{valor:alpha:length(5)}")] //Parâmetro alfanumérico de tamanho 5
+        //[HttpGet("{valor:alpha:length(5)}")] //Parâmetro alfanumérico de tamanho 5
         //public ActionResult<Produto> Get2(string valor)
         //{
         //    var v = valor;
@@ -47,18 +48,32 @@ namespace APICatalogo.Controllers
             //AsNoTracking
             //return await _aPICatalogoDbContext.Produtos.AsNoTracking().ToListAsync();
 
-            return await _unitOfWork.ProdutoRepository.GetProdutos(produtosParameters);
+            var produtos = await _unitOfWork.ProdutoRepository.GetProdutos(produtosParameters);
+
+            var metadata = new
+            {
+                produtos.TotalCount,
+                produtos.PageSize,
+                produtos.CurrentPage,
+                produtos.TotalPages,
+                produtos.HasNext,
+                produtos.HasPrevious
+            };
+
+            Response.Headers.Add("X-Pagination", JsonConvert.SerializeObject(metadata));
+
+            return produtos;
         }
 
         //api/produtos/id
         //Name cria uma rota que permite vincular uma resposta Http
         //id:int:min(1) => especifica que o id tem que ser inteiro e no minimo 1
         [HttpGet("{id:int:min(1)}", Name = "ObterProduto")] //Api recebendo dois parametros - Interrogação para dizer que o segundo parâmetro é opcional
-        public ActionResult<Produto> Get(int id) //O param2 também pode receber um valor padrão que eu definir
+        public async Task<ActionResult<Produto>> Get(int id) //O param2 também pode receber um valor padrão que eu definir
         {
             //throw new Exception("Exception ao retornar produto pelo id");
 
-            var produto = _unitOfWork.ProdutoRepository.GetById(x => x.Id == id);
+            var produto = await _unitOfWork.ProdutoRepository.GetById(x => x.Id == id);
 
             if(produto == null)
             {
@@ -71,7 +86,7 @@ namespace APICatalogo.Controllers
         //do corpo da requisição
         //O ModelBind vincula os parÂmetros do corpo do request com os parâmetros da action post
         [HttpPost]
-        public ActionResult Post([FromBody]ProdutoViewModel produtoViewModel)
+        public async Task<ActionResult> Post([FromBody]ProdutoViewModel produtoViewModel)
         {
             //O ModelState é uma propriedade da classe controller que representa uma coleção de pares "nome" "valor"
             //que são submetidos no servidor durante o post. Ele cnontém uma cleção de mensagens de erro para cada valor submetido.
@@ -89,7 +104,7 @@ namespace APICatalogo.Controllers
             produto.DataCadastro = DateTime.Now;
 
             _unitOfWork.ProdutoRepository.Add(produto);
-            _unitOfWork.Commit();
+            await _unitOfWork.Commit();
 
             //Retornar o codigo 201 CreatedAt
             //Quando criamos um produto, temos que retornar a localização de um produto
@@ -98,7 +113,7 @@ namespace APICatalogo.Controllers
         }
 
         [HttpPut("{id}")]
-        public ActionResult Put(int id,[FromBody] Produto produto)
+        public async Task<ActionResult> Put(int id,[FromBody] Produto produto)
         {
             //if (!ModelState.IsValid)
             //{
@@ -110,17 +125,24 @@ namespace APICatalogo.Controllers
                 return BadRequest();
             }
 
+            var _produto = await _unitOfWork.ProdutoRepository.GetById(x => x.Id == id);
+
+            if (_produto == null)
+            {
+                return NotFound();
+            }
+
             //Para alterar o estado dessa entidade com Modified
             _unitOfWork.ProdutoRepository.Update(produto);
-            _unitOfWork.Commit();
+            await _unitOfWork.Commit();
 
             return Ok(); //Http200
         }
 
         [HttpDelete("{id}")]
-        public ActionResult<Produto> Delete(int id)
+        public async Task<ActionResult<Produto>> Delete(int id)
         {
-            var produto = _unitOfWork.ProdutoRepository.GetById(x => x.Id == id);
+            var produto = await _unitOfWork.ProdutoRepository.GetById(x => x.Id == id);
 
             if(produto == null)
             {
@@ -128,7 +150,7 @@ namespace APICatalogo.Controllers
             }
 
             _unitOfWork.ProdutoRepository.Delete(produto);
-            _unitOfWork.Commit();
+            await _unitOfWork.Commit();
             return produto;
         }
 
