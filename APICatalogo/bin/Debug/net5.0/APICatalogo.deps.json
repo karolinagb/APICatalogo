@@ -37,6 +37,7 @@
           "FluentValidation.AspNetCore": "10.3.0",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "5.0.9",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "5.0.8",
+          "Microsoft.EntityFrameworkCore": "5.0.9",
           "Microsoft.EntityFrameworkCore.Tools": "5.0.7",
           "Pomelo.EntityFrameworkCore.MySql": "5.0.1",
           "Swashbuckle.AspNetCore": "5.6.3",
