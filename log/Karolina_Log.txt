@@ -463,3 +463,16 @@ Information: 0 - 15:35:34
 Information: 0 - ###############################################
 Information: 0 - ================ GET api/categorias ====================
 Information: 0 - ================ GET api/categorias ====================
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\projetos\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 10:51:12
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 10:51:14
+Information: 0 - ###############################################
+Error: 1 - An unhandled exception has occurred while executing the request.
