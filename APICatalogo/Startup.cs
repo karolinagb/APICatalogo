@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -87,6 +88,15 @@ namespace APICatalogo
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "APICatalogo", Version = "v1" });
+            });
+
+            services.AddApiVersioning(options =>
+            {
+                //Vai assumir a versão padrão quando nenhuma for informada
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1,0); //Versão padrão
+                //Adiciona no header do responde se a versão é compatível
+                options.ReportApiVersions = true;
             });
 
             //Adicionando o Fluent Validation ao pipeline
