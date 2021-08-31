@@ -2,6 +2,7 @@
 using APICatalogo.Pagination;
 using APICatalogo.Services;
 using APICatalogo.Transactions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -12,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace APICatalogo.Controllers
 {
+    [Authorize(AuthenticationSchemes = "Bearer")] ///Definindo o authorize e o esquema utilizado para
+    //autorização
     [Route("api/[Controller]")]
     [ApiController]
     public class CategoriasController : ControllerBase

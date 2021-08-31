@@ -6,6 +6,7 @@ using APICatalogo.Services;
 using APICatalogo.Transactions;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -14,7 +15,9 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System.Text;
 
 namespace APICatalogo
 {
@@ -37,6 +40,26 @@ namespace APICatalogo
             services.AddIdentity<IdentityUser, IdentityRole>()
                 .AddEntityFrameworkStores<APICatalogoDbContext>()
                 .AddDefaultTokenProviders();
+
+            //JWT
+            //adiciona o manipulador de autenticacao e define o 
+            //esquema de autenticacao usado : Bearer
+            //valida o emissor, a audiencia e a chave
+            //usando a chave secreta valida a assinatura
+            services.AddAuthentication(
+                JwtBearerDefaults.AuthenticationScheme).
+                AddJwtBearer(options =>
+                 options.TokenValidationParameters = new TokenValidationParameters
+                 {
+                     ValidateIssuer = true,
+                     ValidateAudience = true,
+                     ValidateLifetime = true,
+                     ValidAudience = Configuration["TokenConfiguration:Audience"],
+                     ValidIssuer = Configuration["TokenConfiguration:Issuer"],
+                     ValidateIssuerSigningKey = true,
+                     IssuerSigningKey = new SymmetricSecurityKey(
+                         Encoding.UTF8.GetBytes(Configuration["TokenConfiguration:key"]))
+                 });
 
             //A instância do serviço vai ser criada cada vez que ela for solicitada
             services.AddTransient<IMeuServico, MeuServico>();
