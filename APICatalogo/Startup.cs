@@ -68,6 +68,16 @@ namespace APICatalogo
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
+            //Incluindo o serviço cors POR ATRIBUTO
+            services.AddCors(options =>
+            {
+                options.AddPolicy("PermitirApiRequest",
+                    builder =>
+                    builder.WithOrigins("http://www.apirequest.io")
+                                .WithMethods("GET")
+                    );
+            });
+
             /*Para resolver o problema de referência cíclica do Json (categorias <-> produtos): 
              * Instale o pacote = Microsoft.AspNetCore.Mvc.NewtonsoftJson
              Adicione o código abaixo:*/
@@ -126,6 +136,13 @@ namespace APICatalogo
 
             //adiciona o middleware que habilita a autorização
             app.UseAuthorization();
+
+            //Política Cors definida via Middleware
+            //app.UseCors(option => option
+            //    .WithOrigins("http://www.apirequest.io")
+            //    .WithMethods("GET"));
+
+            app.UseCors();
 
             //Adiciona o middleware que executa o endpoint
             //do request atual

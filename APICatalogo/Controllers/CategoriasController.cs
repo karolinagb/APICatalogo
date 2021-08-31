@@ -3,6 +3,7 @@ using APICatalogo.Pagination;
 using APICatalogo.Services;
 using APICatalogo.Transactions;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

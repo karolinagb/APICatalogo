@@ -4,6 +4,7 @@ using APICatalogo.Models.ViewModels;
 using APICatalogo.Pagination;
 using APICatalogo.Transactions;
 using AutoMapper;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System;
@@ -15,6 +16,7 @@ namespace APICatalogo.Controllers
     [Route("api/[Controller]")] //Para definir a rota de acesso a API. Sem esse atributo nao tem como acessar as APIs. Ele faz um processo de mapeamento das
     //requisições recebidas para a lógica dos métodos actions do controlador. Mapeia para o metodo action correspondente.
     [ApiController] //Habilita mais recursos que facilitam o desenvolvimento
+    [EnableCors("PermitirApiRequest")]
     public class ProdutosController : ControllerBase //Herda de controller base para ter recursos de atender requisições HTTP
                                                      //A classe ControllerBase vai incluir diversas funcionalidade para uma API e vai omitir as funcionalidades de suporte as Views
     {
