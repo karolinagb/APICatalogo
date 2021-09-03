@@ -872,3 +872,38 @@ Information: 0 - ### Executando -> OnActionExecuted
 Information: 0 - ############################################
 Information: 0 - 12:01:57
 Information: 0 - ###############################################
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\projetos\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 14:30:18
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 14:30:20
+Information: 0 - ###############################################
+Error: 1 - An unhandled exception has occurred while executing the request.
+Error: 1 - An unhandled exception has occurred while executing the request.
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\projetos\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 14:42:13
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 14:42:14
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 14:50:37
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 14:50:38
+Information: 0 - ###############################################

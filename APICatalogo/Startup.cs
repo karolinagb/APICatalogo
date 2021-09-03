@@ -19,6 +19,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
+using System;
 using System.Text;
 
 namespace APICatalogo
@@ -88,19 +89,43 @@ namespace APICatalogo
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "APICatalogo", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "APICatalogo",
+                    Version = "v1",
+                    Description = "Catálogo de produtos e categorias",
+                    TermsOfService = new Uri("https://www.karolina.com/terms"),
+                    Contact = new OpenApiContact
+                    {
+                        Name = "Karolina",
+                        Email = "karolina@exemplo.com",
+                        Url = new Uri("https://www.linkedin.com/feed/")
+                    },
+                    License = new OpenApiLicense
+                    {
+                        Name = "Licença da Karolina",
+                        Url = new Uri("https://www.karolina.com/license2")
+                    }
+                });
             });
 
             services.AddApiVersioning(options =>
             {
                 //Vai assumir a versão padrão quando nenhuma for informada
                 options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(1,0); //Versão padrão
+                options.DefaultApiVersion = new ApiVersion(1, 0); //Versão padrão
                 //Adiciona no header do responde se a versão é compatível
                 options.ReportApiVersions = true;
                 //Suporte a passar versao da api no cabeçalho do request atraves da string definida
                 options.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
+
+            services.AddVersionedApiExplorer(
+               options =>
+               {
+                   options.GroupNameFormat = "'v'VVV";
+                   options.SubstituteApiVersionInUrl = true;
+               });
 
             //Adicionando o Fluent Validation ao pipeline
             services.AddMvc().AddFluentValidation(x => x.RegisterValidatorsFromAssemblyContaining<Startup>());
@@ -156,6 +181,15 @@ namespace APICatalogo
             //    .WithMethods("GET"));
 
             app.UseCors();
+
+            //Swagger
+            app.UseSwagger();
+
+            //SwaggerUI
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "APICatalogo");
+            });
 
             //Adiciona o middleware que executa o endpoint
             //do request atual

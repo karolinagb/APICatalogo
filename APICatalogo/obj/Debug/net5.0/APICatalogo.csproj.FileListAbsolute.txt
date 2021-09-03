@@ -131,3 +131,4 @@ C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\zh-Hans\Microsoft.CodeAnaly
 C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\zh-Hant\Microsoft.CodeAnalysis.Workspaces.resources.dll
 C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\runtimes\win-arm\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
 C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\runtimes\win-arm64\lib\net5.0\dotnet-aspnet-codegenerator-design.exe
+C:\projetos\APICatalogo\APICatalogo\bin\Debug\net5.0\Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer.dll
