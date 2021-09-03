@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -97,6 +98,8 @@ namespace APICatalogo
                 options.DefaultApiVersion = new ApiVersion(1,0); //Versão padrão
                 //Adiciona no header do responde se a versão é compatível
                 options.ReportApiVersions = true;
+                //Suporte a passar versao da api no cabeçalho do request atraves da string definida
+                options.ApiVersionReader = new HeaderApiVersionReader("api-version");
             });
 
             //Adicionando o Fluent Validation ao pipeline
