@@ -15,7 +15,7 @@ using System.Threading.Tasks;
 namespace APICatalogo.Controllers
 {
     [Produces("application/json")]
-    [Authorize(AuthenticationSchemes = "Bearer")] ///Definindo o authorize e o esquema utilizado para
+    [Authorize(AuthenticationSchemes = "Bearer")] //Definindo o authorize e o esquema utilizado para
     //autorização
     [Route("api/[Controller]")]
     [ApiController]
@@ -38,6 +38,8 @@ namespace APICatalogo.Controllers
         }
 
         //api/categorias
+        [ProducesResponseType(typeof(List<Categoria>), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Categoria>>> Get([FromQuery] CategoriasParameters categoriasParameters)
         {
@@ -75,6 +77,10 @@ namespace APICatalogo.Controllers
         /// <param name="id">Código da categoria</param>
         /// <returns>Objeto categoria</returns>
         //api/categorias/id
+        [ProducesResponseType(typeof(Categoria), StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpGet("{id}", Name = "ObterCategoria")]
         public async Task<ActionResult<Categoria>> Get(int? id)
         {
@@ -124,6 +130,9 @@ namespace APICatalogo.Controllers
         /// <remarks>Retorna um objeto categoria incluído</remarks>
 
         //api/produtos
+        [ProducesResponseType(typeof(Categoria), StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpPost] //Os métodos actions atendem as requisições para os respectivos verbos Http's
         public async Task<ActionResult> Post([FromBody] Categoria categoria)
         {
@@ -142,6 +151,7 @@ namespace APICatalogo.Controllers
             
         }
 
+        [ApiConventionMethod(typeof(DefaultApiConventions), nameof(DefaultApiConventions.Put))]
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id, [FromBody] Categoria categoria)
         {
@@ -164,6 +174,8 @@ namespace APICatalogo.Controllers
             
         }
 
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status500InternalServerError)]
         [HttpDelete("{id}")]
         public async Task<ActionResult<Categoria>> Delete(int id)
         {

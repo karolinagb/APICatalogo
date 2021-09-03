@@ -13,6 +13,8 @@ using System.Threading.Tasks;
 
 namespace APICatalogo.Controllers
 {
+    //Vai Aplicar as convenções da API definindo os tipos de retorno específico para cada metodo action
+    [ApiConventionType(typeof(DefaultApiConventions))]
     [Produces("application/json")] //Definindo o retorno padrão como json
     [Route("api/[Controller]")] //Para definir a rota de acesso a API. Sem esse atributo nao tem como acessar as APIs. Ele faz um processo de mapeamento das
     //requisições recebidas para a lógica dos métodos actions do controlador. Mapeia para o metodo action correspondente.
@@ -125,6 +127,7 @@ namespace APICatalogo.Controllers
             //Acima estou passando id como parametro para a action get e o produto que virá no corpo
         }
 
+        //Atributo aplica automaticamente todo os tipos de retornos possiveis para o metodo PUT
         [HttpPut("{id}")]
         public async Task<ActionResult> Put(int id,[FromBody] Produto produto)
         {
