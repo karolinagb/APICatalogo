@@ -20,6 +20,8 @@ using Microsoft.Extensions.Logging;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using System;
+using System.IO;
+using System.Reflection;
 using System.Text;
 
 namespace APICatalogo
@@ -107,6 +109,13 @@ namespace APICatalogo
                         Url = new Uri("https://www.karolina.com/license2")
                     }
                 });
+
+                //vai gerar um arquixo xml a partir do executavel da aplicação
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                //Caminho onde o arquivo acima vai ser armazenado
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                //Para ler e injetar os comentarios xml
+                c.IncludeXmlComments(xmlPath);
             });
 
             services.AddApiVersioning(options =>

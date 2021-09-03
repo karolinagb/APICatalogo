@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 
 namespace APICatalogo.Controllers
 {
+    [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase
@@ -34,6 +35,11 @@ namespace APICatalogo.Controllers
             return "AccountController :: Acessado em  : " + DateTime.Now.ToLongDateString();
         }
 
+        /// <summary>
+        /// Registra um novo usuário
+        /// </summary>
+        /// <param name="registerViewModel">Um objeto RegisterViewModel</param>
+        /// <returns>Status 200</returns>
         [HttpPost("register")]
         public async Task<ActionResult> Register([FromBody] RegisterViewModel registerViewModel)
         {
@@ -58,9 +64,14 @@ namespace APICatalogo.Controllers
 
             await _signInManager.SignInAsync(user, false);
 
-            return Ok(GerarJwt(registerViewModel));
+            return Ok();
         }
 
+        /// <summary>
+        /// Verifica as credenciais de um usuário
+        /// </summary>
+        /// <param name="loginViewModel">Um objeto do tipo LoginViewModel</param>
+        /// <returns>Status 200 e o token para o cliente</returns>
         [HttpPost("login")]
         public async Task<ActionResult> Login([FromBody] LoginViewModel loginViewModel)
         {
@@ -77,7 +88,7 @@ namespace APICatalogo.Controllers
 
             if (result.Succeeded)
             {
-                return Ok();
+                return Ok(GerarJwt(loginViewModel));
             }
             else
             {
@@ -86,12 +97,12 @@ namespace APICatalogo.Controllers
             }
         }
 
-        private TokenViewModel GerarJwt(RegisterViewModel registerViewModel)
+        private TokenViewModel GerarJwt(LoginViewModel loginViewModel)
         {
             //define declarações do usuário
             var claims = new[]
             {
-                 new Claim(JwtRegisteredClaimNames.UniqueName, registerViewModel.Email),
+                 new Claim(JwtRegisteredClaimNames.UniqueName, loginViewModel.Email),
                  new Claim("meuPet", "pipoca"),
                  new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
              };

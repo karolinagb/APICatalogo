@@ -13,6 +13,7 @@ using System.Threading.Tasks;
 
 namespace APICatalogo.Controllers
 {
+    [Produces("application/json")] //Definindo o retorno padrão como json
     [Route("api/[Controller]")] //Para definir a rota de acesso a API. Sem esse atributo nao tem como acessar as APIs. Ele faz um processo de mapeamento das
     //requisições recebidas para a lógica dos métodos actions do controlador. Mapeia para o metodo action correspondente.
     [ApiController] //Habilita mais recursos que facilitam o desenvolvimento
@@ -39,6 +40,11 @@ namespace APICatalogo.Controllers
         //    return _aPICatalogoDbContext.Produtos.FirstOrDefault();
         //}
 
+        /// <summary>
+        /// Exibe uma relação dos produtos
+        /// </summary>
+        /// <param name="produtosParameters"></param>
+        /// <returns>Retorna uma lista de objetos produto</returns>
         [HttpGet]
         [ServiceFilter(typeof(ApiLoggingFilter))] //Essa anotação resolver a classe de container e temos que utiliza-la
         //porque estamos utilizando a injeção de dependência
@@ -67,6 +73,11 @@ namespace APICatalogo.Controllers
             return produtos;
         }
 
+        /// <summary>
+        /// Obtém um produto pelo seu identificado ID
+        /// </summary>
+        /// <param name="id">Código do produto</param>
+        /// <returns>Um objeto produto</returns>
         //api/produtos/id
         //Name cria uma rota que permite vincular uma resposta Http
         //id:int:min(1) => especifica que o id tem que ser inteiro e no minimo 1

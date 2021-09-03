@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 
 namespace APICatalogo.Controllers
 {
+    [Produces("application/json")]
     [Authorize(AuthenticationSchemes = "Bearer")] ///Definindo o authorize e o esquema utilizado para
     //autorização
     [Route("api/[Controller]")]
@@ -68,6 +69,11 @@ namespace APICatalogo.Controllers
             
         }
 
+        /// <summary>
+        /// Obter uma categoria pelo seu Id
+        /// </summary>
+        /// <param name="id">Código da categoria</param>
+        /// <returns>Objeto categoria</returns>
         //api/categorias/id
         [HttpGet("{id}", Name = "ObterCategoria")]
         public async Task<ActionResult<Categoria>> Get(int? id)
@@ -99,6 +105,23 @@ namespace APICatalogo.Controllers
 
 
         }
+
+        /// <summary>
+        /// Inclui uma nova categoria
+        /// </summary>
+        /// <remarks>
+        /// Exemplo de request:
+        /// 
+        /// POST api/categorias
+        /// {
+        ///     "id" : 1,
+        ///     "nome" : "categoria1",
+        ///     "imagemurl": "https://www.krol.com/imagens"
+        /// }
+        /// </remarks>
+        /// <param name="categoria">Objeto categoria</param>
+        /// <returns>O objeto categoria incluído</returns>
+        /// <remarks>Retorna um objeto categoria incluído</remarks>
 
         //api/produtos
         [HttpPost] //Os métodos actions atendem as requisições para os respectivos verbos Http's

@@ -2,6 +2,7 @@
 
 namespace APICatalogo.Controllers
 {
+    [Produces("application/json")]
     [ApiVersion("1.0")]
     [Route("api/teste")] //Criando uma rota comums indicano a versao na url
     [ApiController]

@@ -4,6 +4,17 @@
 		<TargetFramework>net5.0</TargetFramework>
 	</PropertyGroup>
 
+	<PropertyGroup>
+		<!--Vai reforçar a geração do xml a partir das anotações no controlador-->
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<!--Remove os alertas devido a falta dos comenários XML-->
+		<NoWarn>$(NoWarn);1591</NoWarn>
+	</PropertyGroup>		
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+	  <DocumentationFile>C:\projetos\APICatalogo\APICatalogo\APICatalogo.xml</DocumentationFile>
+	</PropertyGroup>
+
 	<ItemGroup>
 		<PackageReference Include="AutoMapper" Version="10.1.1" />
 		<PackageReference Include="FluentValidation.AspNetCore" Version="10.3.0" />

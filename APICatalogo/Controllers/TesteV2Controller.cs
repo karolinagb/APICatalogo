@@ -2,6 +2,7 @@
 
 namespace APICatalogo.Controllers
 {
+    [Produces("application/json")]
     [ApiVersion("2.0")]
     [Route("api/teste")]
     [ApiController]
