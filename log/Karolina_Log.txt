@@ -1015,3 +1015,16 @@ Information: 0 - ### Executando -> OnActionExecuted
 Information: 0 - ############################################
 Information: 0 - 11:10:28
 Information: 0 - ###############################################
+Information: 0 - Application started. Press Ctrl+C to shut down.
+Information: 0 - Hosting environment: Development
+Information: 0 - Content root path: C:\projetos\APICatalogo\APICatalogo
+Information: 0 - ### Executando -> OnActionExecuting
+Information: 0 - ############################################
+Information: 0 - 11:16:30
+Information: 0 - ModelState : True
+Information: 0 - ###############################################
+Information: 0 - ### Executando -> OnActionExecuted
+Information: 0 - ############################################
+Information: 0 - 11:16:32
+Information: 0 - ###############################################
+Information: 0 - ================ GET api/categorias ====================

@@ -135,7 +135,7 @@ namespace APICatalogo
                             Reference = new OpenApiReference
                             {
                                 Type = ReferenceType.SecurityScheme,
-                                Id = "Beater"
+                                Id = "Bearer"
                             }
                         },
                         new string[]{ }
