@@ -116,6 +116,32 @@ namespace APICatalogo
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 //Para ler e injetar os comentarios xml
                 c.IncludeXmlComments(xmlPath);
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description = "JWT Authorization header using the Bearer Scheme"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Beater"
+                            }
+                        },
+                        new string[]{ }
+                    }
+
+                });
             });
 
             services.AddApiVersioning(options =>

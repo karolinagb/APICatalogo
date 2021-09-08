@@ -21,7 +21,7 @@ namespace APICatalogo.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IConfiguration _configuration;
 
-        public AuthController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager, 
+        public AuthController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager,
             IConfiguration configuration)
         {
             _userManager = userManager;
@@ -104,7 +104,9 @@ namespace APICatalogo.Controllers
             {
                  new Claim(JwtRegisteredClaimNames.UniqueName, loginViewModel.Email),
                  new Claim("meuPet", "pipoca"),
-                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
+                 new Claim(JwtRegisteredClaimNames.Aud, _configuration["TokenConfiguration:Audience"]),
+                 new Claim(JwtRegisteredClaimNames.Iss, _configuration["TokenConfiguration:Issuer"])
              };
 
             //gera uma chave com base em um algoritmo simetrico
