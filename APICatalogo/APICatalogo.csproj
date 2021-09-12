@@ -9,6 +9,7 @@
 		<GenerateDocumentationFile>true</GenerateDocumentationFile>
 		<!--Remove os alertas devido a falta dos comenários XML-->
 		<NoWarn>$(NoWarn);1591</NoWarn>
+		<UserSecretsId>4bf822a8-f008-4312-8555-2265961cece3</UserSecretsId>
 	</PropertyGroup>		
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">

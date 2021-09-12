@@ -22,18 +22,17 @@ namespace APICatalogo.Controllers
     public class CategoriasController : ControllerBase
     {
         private readonly IUnitOfWork _unitOfWork;
-        private readonly ILogger _logger;
+        //private readonly ILogger _logger;
 
-        public CategoriasController(IUnitOfWork unitOfWork, ILogger<CategoriasController> logger)
+        public CategoriasController(IUnitOfWork unitOfWork/*, ILogger<CategoriasController> logger*/)
         {
             _unitOfWork = unitOfWork;
-            _logger = logger;
         }
 
         [HttpGet("saudacao/{nome}")]
         public ActionResult<string> GetSaudacao([FromServices] IMeuServico meuServico, string nome)
         {
-            _logger.LogInformation("================ GET api/categorias/saudacao/nome ====================");
+            //_logger.LogInformation("================ GET api/categorias/saudacao/nome ====================");
             return meuServico.Saudação(nome);
         }
 
@@ -45,7 +44,7 @@ namespace APICatalogo.Controllers
         {
             try
             {
-                _logger.LogInformation("================ GET api/categorias ====================");
+                //_logger.LogInformation("================ GET api/categorias ====================");
                 //throw new Exception(); Para testar o tratamento do erro 500
                 var categorias = await _unitOfWork.CategoriaRepository.GetCategorias(categoriasParameters);
 
@@ -94,11 +93,11 @@ namespace APICatalogo.Controllers
 
                 var categoria = await _unitOfWork.CategoriaRepository.GetById(x => x.Id == id);
 
-                _logger.LogInformation($"================ GET api/categorias/id = {id} ====================");
+                //_logger.LogInformation($"================ GET api/categorias/id = {id} ====================");
 
                 if (categoria == null)
                 {
-                    _logger.LogInformation($"================ GET api/categorias/id = {id} NOT FOUND ====================");
+                    //_logger.LogInformation($"================ GET api/categorias/id = {id} NOT FOUND ====================");
                     return NotFound($"A categoria com Id = {id} não foi encontrada"); //404
                 }
 
